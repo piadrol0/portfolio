@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,6 +44,7 @@ const Shuffle = ({
 
   useEffect(() => {
     if ("fonts" in document) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (document.fonts.status === "loaded") setFontsLoaded(true);
       else document.fonts.ready.then(() => setFontsLoaded(true));
     } else setFontsLoaded(true);
@@ -51,6 +53,7 @@ const Shuffle = ({
   useGSAP(
     () => {
       if (!ref.current || !text || !fontsLoaded) return;
+
       if (
         respectReducedMotion &&
         window.matchMedia &&
@@ -96,9 +99,7 @@ const Shuffle = ({
         }
         try {
           splitRef.current?.revert();
-        } catch {
-          /* noop */
-        }
+        } catch {}
         splitRef.current = null;
         playingRef.current = false;
       };
@@ -358,12 +359,13 @@ const Shuffle = ({
   const classes = `${baseTw} ${
     ready ? "visible" : "invisible"
   } ${className}`.trim();
-  const Tag = tag || "p";
 
-  return React.createElement(
-    Tag,
-    { ref: ref, className: classes, style: commonStyle },
-    text
+  // اینجا از JSX مستقیم استفاده شده
+  const Tag = tag || "p";
+  return (
+    <Tag ref={ref} className={classes} style={commonStyle}>
+      {text}
+    </Tag>
   );
 };
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -27,26 +28,25 @@ const SplitText = ({
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
+    if (typeof document === "undefined") return; // SSR check
     if (document.fonts.status === "loaded") {
       setFontsLoaded(true);
     } else {
-      document.fonts.ready.then(() => {
-        setFontsLoaded(true);
-      });
+      document.fonts.ready.then(() => setFontsLoaded(true));
     }
   }, []);
 
   useGSAP(
     () => {
+      if (typeof window === "undefined") return; // SSR check
       if (!ref.current || !text || !fontsLoaded) return;
+
       const el = ref.current;
 
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch (_) {
-          /* ignore */
-        }
+        } catch (_) {}
         el._rbsplitInstance = null;
       }
 
@@ -66,11 +66,11 @@ const SplitText = ({
       const assignTargets = (self) => {
         if (splitType.includes("chars") && self.chars.length)
           targets = self.chars;
-        if (!targets && splitType.includes("words") && self.words.length)
+        else if (splitType.includes("words") && self.words.length)
           targets = self.words;
-        if (!targets && splitType.includes("lines") && self.lines.length)
+        else if (splitType.includes("lines") && self.lines.length)
           targets = self.lines;
-        if (!targets) targets = self.chars || self.words || self.lines;
+        else targets = self.chars || self.words || self.lines;
       };
 
       const splitInstance = new GSAPSplitText(el, {
@@ -95,8 +95,6 @@ const SplitText = ({
                 trigger: el,
                 start,
                 once: true,
-                fastScrollEnd: true,
-                anticipatePin: 0.4,
               },
               onComplete: () => {
                 animationCompletedRef.current = true;
@@ -111,14 +109,13 @@ const SplitText = ({
       el._rbsplitInstance = splitInstance;
 
       return () => {
+        if (typeof window === "undefined") return;
         ScrollTrigger.getAll().forEach((st) => {
           if (st.trigger === el) st.kill();
         });
         try {
           splitInstance.revert();
-        } catch (_) {
-          /* ignore */
-        }
+        } catch (_) {}
         el._rbsplitInstance = null;
       };
     },
@@ -147,51 +144,11 @@ const SplitText = ({
       willChange: "transform, opacity",
     };
     const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
-    switch (tag) {
-      case "h1":
-        return (
-          <h1 ref={ref} style={style} className={classes}>
-            {text}
-          </h1>
-        );
-      case "h2":
-        return (
-          <h2 ref={ref} style={style} className={classes}>
-            {text}
-          </h2>
-        );
-      case "h3":
-        return (
-          <h3 ref={ref} style={style} className={classes}>
-            {text}
-          </h3>
-        );
-      case "h4":
-        return (
-          <h4 ref={ref} style={style} className={classes}>
-            {text}
-          </h4>
-        );
-      case "h5":
-        return (
-          <h5 ref={ref} style={style} className={classes}>
-            {text}
-          </h5>
-        );
-      case "h6":
-        return (
-          <h6 ref={ref} style={style} className={classes}>
-            {text}
-          </h6>
-        );
-      default:
-        return (
-          <p ref={ref} style={style} className={classes}>
-            {text}
-          </p>
-        );
-    }
+    const Tag = tag || "p";
+    return React.createElement(Tag, { ref, style, className: classes }, text);
   };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   return renderTag();
 };
 

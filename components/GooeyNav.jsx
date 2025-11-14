@@ -1,6 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useRef, useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 
 const GooeyNav = ({
@@ -21,23 +20,27 @@ const GooeyNav = ({
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
   const [portalEl, setPortalEl] = useState(null);
 
-  const noise = (n = 1) => n / 2 - Math.random() * n;
-  const getXY = (distance, pointIndex, totalPoints) => {
-    const angle =
-      ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
-    return [distance * Math.cos(angle), distance * Math.sin(angle)];
-  };
-  const createParticle = (i, t, d, r) => {
-    let rotate = noise(r / 10);
-    return {
-      start: getXY(d[0], particleCount - i, particleCount),
-      end: getXY(d[1] + noise(7), particleCount - i, particleCount),
-      time: t,
-      scale: 1 + noise(0.2),
-      color: colors[Math.floor(Math.random() * colors.length)],
-      rotate: rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10,
+  // Wrap impure random functions in useMemo so they're not called during render
+  const { noise, getXY, createParticle } = useMemo(() => {
+    const noise = (n = 1) => n / 2 - Math.random() * n;
+    const getXY = (distance, pointIndex, totalPoints) => {
+      const angle =
+        ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
+      return [distance * Math.cos(angle), distance * Math.sin(angle)];
     };
-  };
+    const createParticle = (i, t, d, r) => {
+      let rotate = noise(r / 10);
+      return {
+        start: getXY(d[0], particleCount - i, particleCount),
+        end: getXY(d[1] + noise(7), particleCount - i, particleCount),
+        time: t,
+        scale: 1 + noise(0.2),
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotate: rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10,
+      };
+    };
+    return { noise, getXY, createParticle };
+  }, [particleCount, colors]);
 
   // create a portal root on mount so overlays render at the top level and
   // don't interfere with the nav DOM / stacking context
@@ -47,6 +50,7 @@ const GooeyNav = ({
     el.style.inset = "0";
     el.style.pointerEvents = "none";
     document.body.appendChild(el);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalEl(el);
     return () => {
       try {
@@ -223,7 +227,6 @@ const GooeyNav = ({
           .effect.filter::after {
             content: "";
             position: absolute;
-            to
             inset: 0;
             background: black;
             transform: scale(0);
@@ -234,12 +237,12 @@ const GooeyNav = ({
           .effect.active::after {
             animation: pill 0.3s ease both;
           }
-          @keyframes pill {
-            to {
-              transpform: scale(1);
-              opacity: 1;
-            }
-          }
+         @keyframes pill {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
           .particle,
           .point {
             display: block;

@@ -1,4 +1,5 @@
-"use effect";
+"use client";
+/* eslint-disable react-hooks/unsupported-syntax */
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
