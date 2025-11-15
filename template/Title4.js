@@ -1,6 +1,6 @@
 import React from "react";
 import TrueFocus from "@/components/TrueFocus";
-import { Facebook } from "@mui/icons-material";
+import { Facebook, Home } from "@mui/icons-material";
 import Projects from "@/modules/Projects";
 import Shffle from "@/modules/Shffle";
 function Title4() {
@@ -16,11 +16,11 @@ function Title4() {
           pauseBetweenAnimations={1}
         />
         <h4 className="text-[10px] sm:text-[16px] lg:text-[24px] mx-auto mt-5">
-          Currently, I'm a Software Engineer at <Facebook color="primary" />{" "}
-          Facebook,
+          Currently, I'm a Software Engineer at <Home fontSize=""/>{" "}
+          Home (LOL)
         </h4>
         <p className="text-[10px]  sm:text-[10px] sm:w-[70%] lg:text-[16px] lg:w-[50%] w-[90%] mt-8 mx-auto">
-          A self-taught UI/UX designer, functioning in the industry for 3+ years
+          A self-taught FrontEnd Developer, functioning in the industry for 2+ years
           now. I make meaningful and delightful digital products that create an
           equilibrium between user needs and business goals.
         </p>

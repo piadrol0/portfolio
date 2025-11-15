@@ -6,6 +6,7 @@ function Shffle() {
     <>
       <Shuffle
         text="Example Project"
+        className="pt-10"
         shuffleDirection="right"
         duration={0.35}
         animationMode="evenodd"

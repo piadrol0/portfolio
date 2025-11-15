@@ -7,7 +7,7 @@ function Title1() {
   return (
     <>
       <div className="w-full sm:h-[850px] h-[350px] md:h-[500px] lg:h-[750px] xl:h-[850px] relative">
-        <div className="flex-col justify-around md:h-[500px] lg:h-[850px] sm:h-[350px] h-[350px] items-end bg-black">
+        <div className="flex-col justify-around md:h-[500px] lg:h-[850px] sm:h-[350px] h-[370px] items-end bg-black">
           <LiquidEther
             className="absolute inset-0 z-5"
             colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
