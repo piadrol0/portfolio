@@ -3,12 +3,15 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <footer className="bg-black text-white rounded-base shadow-xs p-4 ">
+      <footer
+        className="bg-black text-white rounded-base shadow-xs p-4 "
+        id="contact"
+      >
         <div className="w-full mx-auto max-w-7xl p-4 md:flex md:items-center md:justify-between">
           <span className="text-sm text-body sm:text-center">
-            © 2023{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
-              Flowbite™
+            © 2025{" "}
+            <a href="https://github.com/piadrol0" className="hover:underline">
+              Piadrol™
             </a>
             . All Rights Reserved.
           </span>

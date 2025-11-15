@@ -31,7 +31,7 @@ function Title4() {
       <h2 className="text-white bg-black mx-auto w-[80%] flex justify-center mt-5 text-xl sm:text-2xl md:text-3xl ">
         <Shffle/>
       </h2>
-      <div className=" overflow-hidden w-[80%] mx-auto text-white flex justify-center md:justify-end md:w-[60%]  mb-5 ">
+      <div className=" overflow-hidden w-[80%] mx-auto text-white flex justify-center md:justify-end md:w-[60%]  mb-5 " id="projects">
         <Projects />
       </div>
     </div>

@@ -27,7 +27,6 @@ function Menu() {
             >
               Get started
             </button>
-           
           </div>
           <div
             className="items-center text-white justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -43,9 +42,9 @@ function Menu() {
                   Home
                 </a>
               </li>
-              <li>
+ <li>
                 <a
-                  href="#"
+                  href="#about"
                   className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
                 >
                   About
@@ -53,15 +52,15 @@ function Menu() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#projects"
                   className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
                 >
-                  Services
+                  Projects
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="#contact"
                   className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
                 >
                   Contact
