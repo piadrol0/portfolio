@@ -10,7 +10,7 @@ function Title3() {
             className="flex items-start justify-center w-[60%]"
             style={{ fontFamily: "sans-serif" }}
           >
-            <img src="/arrow.png" className="w-8" alt="" />
+            <img src="/Arrow.png" className="w-8" alt="" />
             <p className="text-gray-300 text-[8px] mt-3">
               Hello! I Am {""}
               <span className="bg-linear-to-r from-blue-700 via-purple-700 to-pink-700 bg-clip-text text-transparent text-[8px]">

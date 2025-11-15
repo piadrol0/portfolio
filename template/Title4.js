@@ -25,7 +25,7 @@ function Title4() {
           equilibrium between user needs and business goals.
         </p>
         <div className="mt-10">
-          <img src="/skills.png" alt="" />
+          <img src="/Skills.png" alt="" />
         </div>
       </div>
       <h2 className="text-white bg-black mx-auto w-[80%] flex justify-center mt-5 text-xl sm:text-2xl md:text-3xl ">
